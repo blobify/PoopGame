@@ -1,0 +1,5 @@
+<resources>
+
+    <string name="app_name">Food Game</string>
+    <string name="shared_pref_file">pref</string>
+</resources>

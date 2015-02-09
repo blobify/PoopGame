@@ -1,0 +1,41 @@
+apply plugin: 'android'
+
+ /*android {
+    compileSdkVersion 'android-L'
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "com.antibot.poop"
+        minSdkVersion 10
+        targetSdkVersion 20
+    }*/
+
+    android {
+        compileSdkVersion 20
+        buildToolsVersion '20'
+
+        defaultConfig {
+            applicationId "com.example.application"
+            minSdkVersion 10
+            targetSdkVersion 20
+            versionCode 1
+            versionName "1.0"
+        }
+
+    buildTypes {
+        release {
+            minifyEnabled false // new version
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+
+dependencies {
+    //////// do not use dynamic updating.
+   // compile 'com.android.support:support-v4:20.0.0'
+   // compile 'com.android.support:support-v4:+'
+
+    compile 'com.android.support:appcompat-v7:20.+'
+    compile 'com.android.support:support-v4:20.+'
+}
