@@ -1,9 +1,8 @@
 package com.antibot.ui;
 
-import com.antibot.poop.Assets;
-import com.antibot.poop.WorldRenderer;
+import com.antibot.food.Assets;
+import com.antibot.food.WorldRenderer;
 import com.framework.shaderPrograms.TextureShaderProgram;
-import com.framework.utils.Logger;
 import com.game.framework.gl.SpriteBatcher;
 import com.game.framework.gl.TextureRegion;
 

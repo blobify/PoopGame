@@ -1,7 +1,7 @@
 package com.antibot.ui;
 
-import com.antibot.poop.Assets;
-import com.antibot.poop.WorldRenderer;
+import com.antibot.food.Assets;
+import com.antibot.food.WorldRenderer;
 import com.game.framework.gl.TextureRegion;
 
 public class PerkButton extends Button {

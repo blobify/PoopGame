@@ -9,8 +9,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.antibot.poop.Assets;
-import com.antibot.poop.Font;
+import Assets;
+import Font;
 import com.game.framework.gl.TextureRegion;
 
 public class SaxFontParser

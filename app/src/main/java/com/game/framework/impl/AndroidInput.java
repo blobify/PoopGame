@@ -6,7 +6,7 @@ import android.content.Context;
 
 import android.view.View;
 
-import com.antibot.poop.Static;
+import com.antibot.food.Static;
 import com.game.framework.Input;
 
 public class AndroidInput implements Input {    

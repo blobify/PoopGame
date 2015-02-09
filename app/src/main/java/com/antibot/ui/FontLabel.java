@@ -1,8 +1,7 @@
 package com.antibot.ui;
 
-import com.antibot.poop.Font;
-import com.antibot.poop.Static;
-import com.antibot.poop.WorldRenderer;
+import com.antibot.food.Font;
+import com.antibot.food.WorldRenderer;
 import com.game.framework.gl.SpriteBatcher;
 
 public class FontLabel extends UIElement {

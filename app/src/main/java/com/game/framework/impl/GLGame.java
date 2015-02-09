@@ -1,7 +1,5 @@
 package com.game.framework.impl;
 
-import java.util.Locale;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -10,11 +8,8 @@ import android.app.ActivityManager;
 
 import android.content.Context;
 
-import android.content.SharedPreferences;
 import android.content.pm.ConfigurationInfo;
 import android.content.res.AssetManager;
-import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Build;
@@ -22,16 +17,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.antibot.poop.R;
-import com.antibot.poop.Static;
-import com.framework.utils.Logger;
 import com.game.framework.Audio;
 import com.game.framework.FileIO;
 import com.game.framework.Game;

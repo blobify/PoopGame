@@ -1,16 +1,11 @@
 package com.game.framework.gl;
 
-import static android.opengl.GLES20.GL_REPEAT;
 import static android.opengl.GLES20.GL_TEXTURE0;
 import static android.opengl.GLES20.GL_TEXTURE_2D;
-import static android.opengl.GLES20.GL_TEXTURE_WRAP_S;
-import static android.opengl.GLES20.GL_TEXTURE_WRAP_T;
 import static android.opengl.GLES20.glActiveTexture;
 import static android.opengl.GLES20.glBindTexture;
-import static android.opengl.GLES20.glTexParameteri;
 import static android.opengl.GLES20.glUniform1i;
 
-import com.antibot.poop.Assets;
 import com.framework.utils.Logger;
 
 public class Texture

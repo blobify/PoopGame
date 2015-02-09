@@ -1,11 +1,9 @@
 package com.game.framework.gl;
 
-import static android.opengl.GLES20.GL_TEXTURE0;
 import static android.opengl.GLES20.GL_TRIANGLES;
 
-import com.antibot.poop.Assets;
+import com.antibot.food.Assets;
 import com.framework.shaderPrograms.TextureShaderProgram;
-import com.framework.utils.Logger;
 import com.game.math.Vector2;
 
 public class SpriteBatcher
