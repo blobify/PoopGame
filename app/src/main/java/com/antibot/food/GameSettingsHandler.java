@@ -6,6 +6,7 @@ import com.antibot.ui.GenericLayout;
 import com.antibot.ui.OvershootInterpolator;
 
 import com.antibot.ui.Slider;
+import com.framework.utils.Logger;
 import com.game.framework.Input;
 
 public class GameSettingsHandler extends GameStateHandler {
@@ -172,8 +173,9 @@ public class GameSettingsHandler extends GameStateHandler {
 
         //set the slider initial value from preferences here
 
-        slider.calculateBobPosX(Static.preferencesHandler.retrieveKeyAmount(PreferencesHandler.KEY_SENSI_SLIDER_STEP_AMOUNT, 15));  //default caluclated such that sensi val is 1 initially
-
+        ///slider.calculateBobPosX(Static.preferencesHandler.retrieveKeyAmount(PreferencesHandler.KEY_MOVEMENT_SENSI_AMOUNT, 15));  //default caluclated such that sensi val is 1 initially
+        //change this^
+        slider.setStepFromVal(Static.preferencesHandler.getMovementSensiAmount());  //changed version
 
         // set the prefered movement method here
 
@@ -207,19 +209,21 @@ public class GameSettingsHandler extends GameStateHandler {
     @Override
     public void end(char msg) {
 
-
-
         /////////////
         genericLayout.popUp();
 
-        Static.preferencesHandler.setKeyAmount(PreferencesHandler.KEY_SENSI_SLIDER_STEP_AMOUNT , slider.getCurrentStep());
+        final float movementSensi = slider.calculateSliderValue();
 
+        Static.preferencesHandler.setMovementSensiAmount( movementSensi );
+
+        //Logger.log("movement sensi set to " + Static.preferencesHandler.getMovementSensiAmount() + " calc value " + movementSensi);
 
         Static.comboTouchHandler.setSingleTouchMode();
 
     }
 
-    public static float calculateSensiValue(int currentStep)
+
+   /* public float calculateSensiValue(int currentStep)
     {
         float sliderVal = SENSI_MIN_VALUE + (SENSI_MAX_VALUE - SENSI_MIN_VALUE)*currentStep/SENSI_STEP_COUNT;
 
@@ -228,7 +232,7 @@ public class GameSettingsHandler extends GameStateHandler {
         else if(sliderVal > SENSI_MAX_VALUE) sliderVal = SENSI_MAX_VALUE;
 
         return sliderVal;
-    }
+    }*/
 
     @Override
     public boolean onKeyPressed(Input.KeyEvent event) {

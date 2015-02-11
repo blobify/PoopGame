@@ -21,7 +21,9 @@ public class Session
 	public KeyPressHandler keyPressHandler;
 
     public boolean headStart,protectiveOrb,longerNitro,muchFood;
-	
+
+    public float movementSensi = 1;
+
 	public Session()
 	{
 		keyPressHandler = new KeyPressHandler();

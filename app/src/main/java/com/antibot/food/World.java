@@ -10,7 +10,7 @@ public class World extends GameStateHandlerWithSubStates
 	
 	public static final int NUMBER_OF_GAME_STATES = 4;
 
-    public static final char MSG_MAIN_MENU = 'm', MSG_PERK = 'k', MSG_GAME_RUNNING = 'g', MSG_SETTINGS = 's', MSG_GR_SS_RUNNING = 'a', MSG_GR_SS_DIALOG = 'd', MSG_GR_SS_PAUSED = 'p';
+    public static final char MSG_MAIN_MENU = 'm', MSG_PERK = 'k', MSG_GAME_RUNNING = 'g', MSG_SETTINGS = 's', MSG_GR_SS_RUNNING = 'a', MSG_GR_SS_DIALOG_QUIT = 'q', MSG_GR_SS_DIALOG_END = 'd', MSG_GR_SS_PAUSED = 'p';
 
 
 

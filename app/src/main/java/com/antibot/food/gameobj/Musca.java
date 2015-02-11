@@ -11,6 +11,7 @@ import com.antibot.food.Static;
 import com.antibot.food.UpdateAndDraw;
 import com.antibot.food.UpdateWork;
 import com.framework.shaderPrograms.TextureShaderProgram;
+import com.framework.utils.Logger;
 import com.game.framework.gl.SpriteBatcher;
 import com.game.framework.gl.TextureRegion;
 import com.game.math.Vector2;
@@ -299,15 +300,17 @@ public class Musca extends CircularCollidableObject {
             pos.y += delY;
 
             if (ACCEL_MODE) {
-                vel.x = -Static.game.getInput().getAccelX();
+                vel.x = -Static.game.getInput().getAccelX() * Static.session.movementSensi;
 
-            } else {
+            }
+            //else
+            {
                 if (Static.session.keyPressHandler.leftPressed)
-                    vel.x = -5;
+                    vel.x = -5*Static.session.movementSensi;
                 else if (Static.session.keyPressHandler.rightPressed)
-                    vel.x = 5;
-                else
-                    vel.x = 0;
+                    vel.x = 5*Static.session.movementSensi;
+                //else
+                //    vel.x = 0;
             }
 
             if (vel.x > MAX_VEL_X) {

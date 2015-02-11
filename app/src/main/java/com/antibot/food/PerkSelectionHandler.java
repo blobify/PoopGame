@@ -372,6 +372,8 @@ public class PerkSelectionHandler extends GameStateHandler {
             // Setting perk data
             Session session = Static.session;
             session.setSessionPerks(perkButtonHeadStart.checkOut(),perkButtonProtectiveOrb.checkOut(),perkButtonLongerNitro.checkOut(),perkButtonMoreFood.checkOut());
+
+
         }
 
         layout.hide();

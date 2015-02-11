@@ -12,7 +12,10 @@ import com.framework.shaderPrograms.TextureShaderProgram;
 import com.game.framework.Input;
 import com.game.framework.gl.SpriteBatcher;
 
-public class GR_SS_Dialog extends GameStateHandlerWithSubStates {
+/**
+ * pops up when musca is killed
+ */
+public class GR_SS_DialogEnd extends GameStateHandlerWithSubStates {
 
     public static final int DIALOG_INTERMEDIATE = 0, DIALOG_END = 1;
 
@@ -26,9 +29,9 @@ public class GR_SS_Dialog extends GameStateHandlerWithSubStates {
     int state;
     char msgReceived;
 
-    public GR_SS_Dialog(GameRunningHandler parent) {
+    public GR_SS_DialogEnd(GameRunningHandler parent) {
 
-        super(GameRunningHandler.GR_SS_DIALOG, parent);
+        super(GameRunningHandler.GR_SS_DIALOG_END, parent);
 
         subStateArr = new GameStateHandler[2];
         subStateArr[DIALOG_INTERMEDIATE] = new DialogIntermediateHandler(this);
@@ -95,8 +98,8 @@ public class GR_SS_Dialog extends GameStateHandlerWithSubStates {
                 else if(msgReceived == MSG_SHRINK_AND_CONTINUE_GAME) {
 
                    // Logger.log("CONTINUEING CONTINUELYING", "CONTINUE CONTINUE CONTINUE");
-                    //setChangeStateFlag(1, GameRunningHandler.GR_SS_RUNNING, World.MSG_GR_SS_DIALOG, World.MSG_GR_SS_RUNNING);
-                    parent.setChangeStateFlag(GameRunningHandler.GR_SS_RUNNING, World.MSG_GR_SS_DIALOG, World.MSG_GR_SS_RUNNING);
+                    //setChangeStateFlag(1, GameRunningHandler.GR_SS_RUNNING, World.MSG_GR_SS_DIALOG_END, World.MSG_GR_SS_RUNNING);
+                    parent.setChangeStateFlag(GameRunningHandler.GR_SS_RUNNING, World.MSG_GR_SS_DIALOG_END, World.MSG_GR_SS_RUNNING);
                 }
             }
         }
@@ -172,7 +175,7 @@ public class GR_SS_Dialog extends GameStateHandlerWithSubStates {
     @Override
     public void receiveMessage(char someMessage) {
 
-       msgReceived = someMessage;
+       msgReceived = someMessage; // store the message since it will be processed in update()
 
        if(msgReceived == MSG_SHRINK_STARTED)
        {
@@ -234,9 +237,9 @@ public class GR_SS_Dialog extends GameStateHandlerWithSubStates {
 
         boolean timeUp;
 
-        public DialogIntermediateHandler(GR_SS_Dialog parent) {
+        public DialogIntermediateHandler(GR_SS_DialogEnd parent) {
 
-            super(GR_SS_Dialog.DIALOG_INTERMEDIATE, parent);
+            super(GR_SS_DialogEnd.DIALOG_INTERMEDIATE, parent);
 
             createInterpolator();
 
@@ -251,12 +254,12 @@ public class GR_SS_Dialog extends GameStateHandlerWithSubStates {
                         state = ACTIVE;
                         layout.enable();
                     } else if (id == SHRINK_DIALOG_TO_END_STATE) {
-                        parent.setChangeStateFlag(GR_SS_Dialog.DIALOG_END);
+                        parent.setChangeStateFlag(GR_SS_DialogEnd.DIALOG_END);
                     }
                     else if(id == SHRINK_DIALOG_TO_CONTINUE)
                     {
 
-                        //parent.setChangeStateFlag(1,GameRunningHandler.GR_SS_RUNNING,World.MSG_GR_SS_DIALOG,World.MSG_GR_SS_RUNNING);
+                        //parent.setChangeStateFlag(1,GameRunningHandler.GR_SS_RUNNING,World.MSG_GR_SS_DIALOG_END,World.MSG_GR_SS_RUNNING);
                         parent.receiveMessage(MSG_SHRINK_AND_CONTINUE_GAME);
                     }
                 }
@@ -375,7 +378,7 @@ public class GR_SS_Dialog extends GameStateHandlerWithSubStates {
             fontLabelNumberOfGemAvailable.set("x" + Static.preferencesHandler.retrieveGemAmount(),false,0.7f);
             fontLabelGemCost.set("x" + Static.session.continueGemAmount,false,0.6f);
 
-            continueButton.enable();
+            continueButton.enable();  //check if this call is redundant
 
             if(Static.preferencesHandler.retrieveGemAmount() < Static.session.continueGemAmount)
             {
@@ -446,8 +449,8 @@ public class GR_SS_Dialog extends GameStateHandlerWithSubStates {
         int state;
 
 
-        public DialogEndHandler(GR_SS_Dialog parent) {
-            super(GR_SS_Dialog.DIALOG_END, parent);
+        public DialogEndHandler(GR_SS_DialogEnd parent) {
+            super(GR_SS_DialogEnd.DIALOG_END, parent);
 
             createInterpolator();
 

@@ -9,7 +9,9 @@ import com.game.framework.gl.TextureRegion;
 public class Slider extends UILayout implements Clickable {
 
 
-    float sliderStepMin, sliderStepMax, sliderStepVal;
+    float sliderValMin, sliderValMax;
+    float sliderStepVal;
+
     int stepCount, currentStep;
 
     float bobMinX, bobStepVal, bobPosX;
@@ -21,16 +23,17 @@ public class Slider extends UILayout implements Clickable {
 
     float bobScale;
 
-    public Slider( float width, float height, float bobScale, float sliderStepMin, float sliderStepMax, int stepCount)
+    public Slider( float width, float height, float bobScale, float sliderValMin, float sliderValMax, int stepCount)
     {
         super(width,height,Assets.slider_base);
 
-        this.sliderStepMin = sliderStepMin;
-        this.sliderStepMax = sliderStepMax;
+        this.sliderValMin = sliderValMin;
+        this.sliderValMax = sliderValMax;
+
 
         this.stepCount = stepCount;
 
-        sliderStepVal = (sliderStepMax - sliderStepMin)/stepCount;
+        sliderStepVal = (sliderValMax - sliderValMin)/stepCount;
 
         this.width = width; this.height = height;
         this.bobScale = bobScale;
@@ -39,15 +42,20 @@ public class Slider extends UILayout implements Clickable {
 
     }
 
+    public void setStepFromVal(float val)
+    {
+        final int stepToSet = (int) Math.floor( (val - sliderValMin)*stepCount/(sliderValMax - sliderValMin) );
+        setBobPosX(stepToSet);
+    }
 
 
     public float calculateSliderValue()
     {
-        float sliderVal = sliderStepMin + sliderStepVal*currentStep;
+        float sliderVal = sliderValMin + sliderStepVal*currentStep;
 
         //simple security measure
-        if(sliderVal < sliderStepMin) sliderVal = sliderStepMin;
-        else if(sliderVal > sliderStepMax) sliderVal = sliderStepMax;
+        if(sliderVal < sliderValMin) sliderVal = sliderValMin;
+        else if(sliderVal > sliderValMax) sliderVal = sliderValMax;
 
         return sliderVal;
     }
@@ -58,7 +66,7 @@ public class Slider extends UILayout implements Clickable {
     }
 
 
-    public void calculateBobPosX(int currentStep)
+    private void setBobPosX(int currentStep)
     {
         this.currentStep  = currentStep;
 

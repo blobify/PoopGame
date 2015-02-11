@@ -12,7 +12,7 @@ public class PreferencesHandler {
     public static final String KEY_NITRO_CAPACITY = "key_nitro_capacity";
     public static final String KEY_GEM_AMOUNT = "key_gem_amount";
 
-    public static final String KEY_SENSI_SLIDER_STEP_AMOUNT = "key_sensi_slider_step_amount";
+    public static final String KEY_MOVEMENT_SENSI_AMOUNT = "key_sensi_slider_step_amount";
 
     public static final String KEY_MOVEMENT_MODE = "key_movement_mode";
 
@@ -63,6 +63,16 @@ public class PreferencesHandler {
     public void setKeyAmount(String key, int amount)
     {
         preferences.edit().putInt(key,amount).apply();
+    }
+
+    public void setMovementSensiAmount(float amount)
+    {
+        preferences.edit().putFloat(KEY_MOVEMENT_SENSI_AMOUNT, amount).apply();
+    }
+
+    public float getMovementSensiAmount()
+    {
+        return preferences.getFloat(KEY_MOVEMENT_SENSI_AMOUNT, 1);
     }
 
     public boolean retrieveKeyBoolean(String key, boolean defult)

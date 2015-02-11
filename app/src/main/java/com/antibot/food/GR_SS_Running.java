@@ -51,10 +51,8 @@ public class GR_SS_Running extends GameStateHandler
 	
 	@Override
 	public void update(float deltaTime)
-	{		
-
-
-        /*GameRunningHandler gameRunningHandler = (GameRunningHandler)parent;
+	{
+	    /*GameRunningHandler gameRunningHandler = (GameRunningHandler)parent;
 
         gameRunningHandler.updateObjectsAndCamera(deltaTime);
         */
@@ -87,22 +85,18 @@ public class GR_SS_Running extends GameStateHandler
 	@Override
 	public void onStart(char msg)
 	{
-        if(msg != World.MSG_GR_SS_PAUSED)  // if starting from dialog or starting from parent itself
+        if( (msg != World.MSG_GR_SS_PAUSED) && (msg != World.MSG_GR_SS_DIALOG_QUIT))  // if starting from dialog or starting from parent itself
         {
-
-
             World.background.bottomCameraPos = 0;
-
 
             Static.objHandler.reset();
 
             Static.cam.bottomPos = 0;
             Static.cam.reset();
 
-
         }
 
-        if(msg == World.MSG_GR_SS_DIALOG)  // if continue was clicked in dialog,
+        if(msg == World.MSG_GR_SS_DIALOG_END)  // if continue was clicked in dialog,
         {
             //Logger.log("MUSCA CLEANED!", "MUSCA CLEANED!!");
             Static.musca.clean(Static.TARGET_WIDTH / 2, 0);
@@ -130,7 +124,7 @@ public class GR_SS_Running extends GameStateHandler
 	{
         Static.session.gameAreaTouched = false;
 
-        if(msg == World.MSG_GR_SS_DIALOG)
+        if(msg == World.MSG_GR_SS_DIALOG_END)
         {
             Static.objHandler.killAllObjectsFromAllLists();
         }
@@ -205,6 +199,11 @@ public class GR_SS_Running extends GameStateHandler
 			}
 			return true;
 		}
+        else if(isBackPressed(event))
+        {
+            parent.setChangeStateFlag(GameRunningHandler.GR_SS_DIALOG_QUIT,World.MSG_GR_SS_DIALOG_QUIT,World.MSG_GR_SS_DIALOG_QUIT);
+            return true;
+        }
 		
 		
 		return false;

@@ -2,6 +2,7 @@ package com.antibot.food;
 
 import com.antibot.food.gameobj.Musca;
 import com.antibot.food.gameobj.Nitro;
+import com.framework.utils.Logger;
 import com.game.framework.Input.KeyEvent;
 
 public class GameRunningHandler extends GameStateHandlerWithSubStates
@@ -12,8 +13,8 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 	public Camera cam;	
 	
 	//private GameStateHandler[] subStateArr;
-	public static final int GR_SS_RUNNING = 0, GR_SS_PAUSED = 1, GR_SS_DIALOG = 2;// GR_SS = GAME RUNNING SUB STATE
-	private static final int NO_OF_SUB_STATES = 3;
+	public static final int GR_SS_RUNNING = 0, GR_SS_PAUSED = 1, GR_SS_DIALOG_QUIT = 2 , GR_SS_DIALOG_END = 3;// GR_SS = GAME RUNNING SUB STATE
+	private static final int NO_OF_SUB_STATES = 4;
 
 
 	//private GameStateHandler currentSubState;
@@ -31,7 +32,7 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
         Static.musca.setMuscaDeathListener(new Musca.MuscaDeathListener() {
             @Override
             public void onMuscaDeath() {
-                setChangeStateFlag(GR_SS_DIALOG,World.MSG_GR_SS_DIALOG,World.MSG_GR_SS_DIALOG);
+                setChangeStateFlag(GR_SS_DIALOG_END,World.MSG_GR_SS_DIALOG_END,World.MSG_GR_SS_DIALOG_END);
             }
         });
 
@@ -45,7 +46,8 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 		
 		subStateArr[GR_SS_RUNNING] = current = new GR_SS_Running(this,cam);
 		subStateArr[GR_SS_PAUSED] = new GR_SS_Paused(this);
-		subStateArr[GR_SS_DIALOG] = new GR_SS_Dialog(this);
+		subStateArr[GR_SS_DIALOG_END] = new GR_SS_DialogEnd(this);
+        subStateArr[GR_SS_DIALOG_QUIT] = new GR_SS_DialogQuit(this);
 		
 	}
 	
@@ -55,7 +57,7 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
         //changeStateIf();
 
 
-        if(current.objType != GR_SS_PAUSED)  //dont update when paused :|
+        if(current.objType != GR_SS_PAUSED && current.objType != GR_SS_DIALOG_QUIT)  //dont update when paused :|
             updateObjectsAndCamera(deltaTime);
 
 		current.update(deltaTime);
@@ -82,6 +84,8 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 	@Override
 	public void onStart(char msg)
 	{
+        Static.session.movementSensi = Static.preferencesHandler.getMovementSensiAmount();
+
         setPerks();
 
 		current = subStateArr[GR_SS_RUNNING];
@@ -182,19 +186,29 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 	@Override
 	public boolean onKeyPressed(KeyEvent event)
 	{
-		if(current.onKeyPressed(event))
+		/*if(current.onKeyPressed(event))
 		{
 			return true;
 		}
 		else
 		{
-			if(isBackPressed(event))
+
+
+			if(isBackPressed(event) && current.objType == GR_SS_RUNNING)
 			{
-                parent.setChangeStateFlag(World.MAIN_MENU, World.MSG_MAIN_MENU, World.MSG_MAIN_MENU);
+                //parent.setChangeStateFlag(World.MAIN_MENU, World.MSG_MAIN_MENU, World.MSG_MAIN_MENU);
+                //^dont quit game directly but
+                setChangeStateFlag(GR_SS_DIALOG_QUIT,World.MSG_GR_SS_DIALOG_QUIT,World.MSG_GR_SS_DIALOG_QUIT);
+                //^do this instead
+
 				return true;
 			}
-		}
-		return false;
+		}*/
+
+
+        return current.onKeyPressed(event);
+
+		//return false;
 	}
 
     @Override
