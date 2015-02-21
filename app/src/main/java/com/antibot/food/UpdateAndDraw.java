@@ -1,9 +1,6 @@
 package com.antibot.food;
 
-public interface UpdateAndDraw
+public interface UpdateAndDraw extends UpdateWork, DrawWork
 {
-	public void update(float deltaTime);
-	
-	public void draw();	
-	
+
 }

@@ -68,6 +68,7 @@ public class SpriteBatcher
 		if (!region.rotate)
 		{			
 			fillVerticesBuffer(x1, y1, x2, y1, x2, y2, x1, y2, u1, v2, u2, v2, u2, v1, u1, v1);
+
 		} else
 		{
 		
@@ -96,7 +97,7 @@ public class SpriteBatcher
 		drawSprite(x, y, width, height, angle, region);
 	}
 
-	public void drawCarefulHorizontallyInvertedSprite(float x, float y, float width, float height, TextureRegion region, TextureShaderProgram texShaderProgram)
+	public void drawCarefulInvertedSprite(float x, float y, float width, float height, boolean invertX, boolean invertY,TextureRegion region, TextureShaderProgram texShaderProgram)
 	{
 		takeCarefulMeasures(region, texShaderProgram);
 
@@ -106,15 +107,32 @@ public class SpriteBatcher
 		float y1 = y - halfHeight;
 		float x2 = x + halfWidth;
 		float y2 = y + halfHeight;
+
+        if(invertX){
+            float temp = x2;
+            x2 = x1;
+            x1 = temp;
+        }
+
+        if(invertY)
+        {
+            float temp = y2;
+            y2 = y1;
+            y1 = temp;
+        }
 		
 		float u1 = region.u1; float u2 = region.u2; float v1 = region.v1; float v2 = region.v2;
-		
-		if (!region.rotate)
-		{
-			fillVerticesBuffer(x1, y1, x2, y1, x2, y2, x1, y2, u2, v2, u1, v2, u1, v1, u2, v1);
-		}
 
-	}
+        if (!region.rotate)
+        {
+            fillVerticesBuffer(x1, y1, x2, y1, x2, y2, x1, y2, u1, v2, u2, v2, u2, v1, u1, v1);
+        } else
+        {
+
+            fillVerticesBuffer(x1, y1, x2, y1, x2, y2, x1, y2, u2, v2, u2, v1, u1, v1, u1, v2);
+        }
+
+    }
 	
 	
 	/**

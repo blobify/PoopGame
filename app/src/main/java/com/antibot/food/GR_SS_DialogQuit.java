@@ -64,6 +64,7 @@ public class GR_SS_DialogQuit extends GameStateHandler{
     private void createUILayout()
     {
         layout = new GenericLayout(Static.TARGET_WIDTH/1.5f, 4.5f, Assets.rect_black);
+        layout.setAlpha(0.4f);
 
         labelHeading = new FontLabel(Assets.fnt_playtime,12);
         labelHeading.set("Quit?", true, 0.9f);
@@ -121,9 +122,13 @@ public class GR_SS_DialogQuit extends GameStateHandler{
         SpriteBatcher batcher = WorldRenderer.batcher;
         TextureShaderProgram texShaderProgram = WorldRenderer.texShaderProgram;
 
-        WorldRenderer.presentRunning();
+        batcher.beginBatch();
+
+
 
         layout.draw();
+
+
 
         batcher.endBatch(texShaderProgram);
     }

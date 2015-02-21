@@ -15,6 +15,7 @@ public class Coin extends CircularCollidableObject
 {
 	
 	public static final float RADIUS  = 0.175f;
+    public static final float RADIUS_OF_ATTRACTION = 2.5f;
 	public static final float RADIUSINTOTWO = RADIUS*2;
 	public static final float  MAX_VEL = 3f;
 	
@@ -109,17 +110,24 @@ public class Coin extends CircularCollidableObject
 
 	}
 	
-	private void updateVelAndPos(float deltaTime, Vector2 MuscaPos)
+	private void updateVelAndPos(float deltaTime, Vector2 muscaPos)
 	{
-		Vector2 dir = Static.tempVector;
-		
-		float len = dir.set(MuscaPos).sub(pos).len();
+        if(pos.y - muscaPos.y <= RADIUS_OF_ATTRACTION*2)  //early exit
+        {
+            boolean isWithingRangeOfMusca = (muscaPos.x - pos.x) * (muscaPos.x - pos.x) + (muscaPos.y - pos.y) * (muscaPos.y - pos.y) <= RADIUS_OF_ATTRACTION * RADIUS_OF_ATTRACTION;
 
-		dir.nor();
-		
-		pos.x += dir.x * 2* deltaTime/len;
-		pos.y += dir.y * 2* deltaTime/len;
-		
+            if (isWithingRangeOfMusca) {
+                Vector2 dir = Static.tempVector;
+
+                float len = dir.set(muscaPos).sub(pos).len();
+
+                dir.nor();
+
+                pos.x += dir.x * 2 * deltaTime / len;
+                pos.y += dir.y * 2 * deltaTime / len;
+            }
+
+        }
 		
 	}
 	

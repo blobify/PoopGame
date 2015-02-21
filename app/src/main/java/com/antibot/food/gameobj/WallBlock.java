@@ -13,6 +13,7 @@ public class WallBlock extends RectangularCollidableObject
 {
 
 	public static final float LENGTH = 0.72f;
+    public static final float WALL_BLOCKS_PER_LENGTH_OF_SCREEN = 10;  // depends on LENGTH and TARGET_LENGTH
 	
     float alpha;
 	

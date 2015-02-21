@@ -51,11 +51,11 @@ public class GR_SS_Paused extends GameStateHandler
 
 	@Override
 	public void draw()
-	{		
-		SpriteBatcher batcher = WorldRenderer.batcher;
-		TextureShaderProgram texShaderProgram = WorldRenderer.texShaderProgram;
-		
-		WorldRenderer.presentRunning();
+	{
+
+
+        SpriteBatcher batcher = WorldRenderer.batcher;
+        TextureShaderProgram texShaderProgram = WorldRenderer.texShaderProgram;
 		
 		//draw overlay thingy
 		//change alpha

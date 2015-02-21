@@ -41,15 +41,12 @@ public class Static
 	public static Session session;
 	public static UIThreadHandler uiThreadHandler;  // initialized in onSurfaceCreated of Main
 	public static PreferencesHandler preferencesHandler;
-    public static GameStateHandler gameRunningHandler;
+    public static GameRunningHandler gameRunningHandler;
     public static Musca musca;
 
     private volatile static boolean dimensionsSet = false;
 
 
-
-
-    public static LevelGenerator levelGenerator;
     public static SceneLoader sceneLoader;
     public static final String SCENE_FILE_NAME = "scenes";
 
@@ -59,6 +56,7 @@ public class Static
     public static final boolean LEVEL_GEN_MODE = true;  //dev mode
 
     public static ComboTouchHandler comboTouchHandler;
+    public static NicePool NicePool;
 
     public static void setAllDimentionalConstants(int width, int height)
 	{

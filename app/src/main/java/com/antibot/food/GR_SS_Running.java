@@ -65,7 +65,7 @@ public class GR_SS_Running extends GameStateHandler
 			World.background.bottomCameraPos = cam.bottomPos;
 		}
 
-        Static.levelGenerator.update(deltaTime);
+        //Static.levelGenerator.update(deltaTime);  u must go to parent
 		
 		layout.update(deltaTime);
 	}
@@ -73,8 +73,6 @@ public class GR_SS_Running extends GameStateHandler
 	@Override
 	public void draw()
 	{
-		WorldRenderer.presentRunning();
-		
 		WorldRenderer.batcher.beginBatch(); //TODO optimizable
 		
 		layout.draw(0, Static.cam.bottomPos);

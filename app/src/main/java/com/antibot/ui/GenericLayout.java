@@ -1,6 +1,7 @@
 package com.antibot.ui;
 
 
+import com.antibot.food.WorldRenderer;
 import com.game.framework.gl.TextureRegion;
 
 public class GenericLayout extends UILayout
@@ -8,9 +9,10 @@ public class GenericLayout extends UILayout
     public GenericLayout(float width, float height, TextureRegion region)
     {
         super(width, height, region);
+        alpha = 1; alphaSet = false;
     }
 
-
+    private float alpha; private boolean alphaSet;
 
     @Override
     public boolean onTouchDown(float touchX, float touchY) {
@@ -110,10 +112,26 @@ public class GenericLayout extends UILayout
 
     }
 
+    public void setAlpha(float alpha)
+    {
+        this.alpha = alpha;
+
+        if(alpha < 1) alphaSet = true;
+        else alphaSet = false;
+    }
+
     @Override
     public void draw() {
+        if(alphaSet) {
+            WorldRenderer.batcher.prepareForDrawingAlpha(alpha,WorldRenderer.texShaderProgram);
+        }
+
         drawTextureRegion(0,0);
         super.draw();
+
+        if(alphaSet) {
+            WorldRenderer.batcher.finalizeDrawingAlpha(WorldRenderer.texShaderProgram);
+        }
     }
 
     @Override

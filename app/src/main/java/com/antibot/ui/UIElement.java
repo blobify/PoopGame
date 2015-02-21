@@ -31,11 +31,11 @@ public abstract class UIElement
         visible = false;
     }
 
-    public abstract void onParentPosSet();
+    protected abstract void onParentPosSet();
 
-    public abstract void onParentScaleSet();
+    protected abstract void onParentScaleSet();
 
-    public abstract boolean isClickable();  // or isLayout()
+    protected abstract boolean isClickable();  // or isLayout()
 
 
 

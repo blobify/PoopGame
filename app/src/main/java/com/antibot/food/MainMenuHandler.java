@@ -82,6 +82,8 @@ public class MainMenuHandler extends GameStateHandler
 
                 Static.preferencesHandler.setGemAmount(50);  // delete this asap
 
+                Static.preferencesHandler.setCoinAmount(1000);
+
             }
         };
 

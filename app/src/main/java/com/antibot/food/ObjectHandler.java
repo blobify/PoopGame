@@ -335,7 +335,7 @@ public class ObjectHandler
             @Override
             public void onMuscaDeltaY(float deltaY) {
                 Static.session.addDistance(deltaY);
-                Static.levelGenerator.deltaY(deltaY);
+                Static.gameRunningHandler.getLevelGenerator().deltaY(deltaY);
             }
 
             @Override
@@ -393,7 +393,7 @@ public class ObjectHandler
 	}
 	
 	
-	public void addFoodToWaitingList(float posX, float posY)
+	public Food addFoodToWaitingList(float posX, float posY)
 	{
 		
 		if(objPool[INDEX_FOOD].size() > 0)
@@ -404,9 +404,9 @@ public class ObjectHandler
 			food.set(posX, posY, Static.rand.nextInt(2));
 			//activeCollidableObjectList.add(food);
             waitingList.add(food);
+            return food;
 		}
-		
-		
+        return null;
 	}
 
 

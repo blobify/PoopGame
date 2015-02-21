@@ -10,6 +10,7 @@ public class Session
 {
     public static final int MAX_GEM_COUNT = 5;
 
+
 	public int coinsCollectedInSession, gemsCollectedInSession;
 
     public int continueGemAmount;
@@ -23,6 +24,7 @@ public class Session
     public boolean headStart,protectiveOrb,longerNitro,muchFood;
 
     public float movementSensi = 1;
+    public float foodProbability = 1;
 
 	public Session()
 	{
@@ -36,6 +38,9 @@ public class Session
         this.protectiveOrb = protectiveOrb;
         this.longerNitro = longerNitro;
         this.muchFood = muchFood;
+
+        if(muchFood) foodProbability = 1.5f;
+        else foodProbability = 1;
     }
 	
 	public void resetSession()
@@ -44,6 +49,7 @@ public class Session
 		distanceTravelledInSession = 0;
         gemsCollectedInSession = 0;
         continueGemAmount = 1;
+
 
         headStart = false;
         protectiveOrb = false;

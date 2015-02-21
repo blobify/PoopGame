@@ -19,19 +19,34 @@ public class TextureRegion
 		this.v1 = y / texture.height;
 		this.u2 = this.u1 + width / texture.width;
 		this.v2 = this.v1 + height / texture.height;
-		
-		
+
 		this.drawHeight = height/100f;
 		this.drawWidth = width/100f;
+
 		this.parentTextureActiveUnit = texture.activeTextureUnit;
 	} 
  
 	// for rotated
 	public TextureRegion(Texture texture, float x, float y, float width,
 			float height, boolean rotate)
-	{  
-		this(texture,x,y,width,height);
-		this.rotate = rotate;
+	{
+        this.u1 = x / texture.width;
+        this.v1 = y / texture.height;
+        this.u2 = this.u1 + width / texture.width;
+        this.v2 = this.v1 + height / texture.height;
+
+        if(!rotate) {
+            this.drawHeight = height / 100f;
+            this.drawWidth = width / 100f;
+        }
+        else
+        {
+            this.rotate = true;
+            this.drawHeight = width / 100f;
+            this.drawWidth = height / 100f;
+        }
+
+        this.parentTextureActiveUnit = texture.activeTextureUnit;
 		
 	}	
 	

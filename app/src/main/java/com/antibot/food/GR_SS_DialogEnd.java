@@ -108,10 +108,11 @@ public class GR_SS_DialogEnd extends GameStateHandlerWithSubStates {
     @Override
     public void draw() {
 
+
+
         SpriteBatcher batcher = WorldRenderer.batcher;
         TextureShaderProgram texShaderProgram = WorldRenderer.texShaderProgram;
 
-        WorldRenderer.presentRunning();
 
         batcher.prepareForDrawingAlpha(overlayAlpha,texShaderProgram);
         batcher.drawCarefulSprite(Static.TARGET_WIDTH_BY_TWO,Static.cam.bottomPos + Static.targetHeightFixerByTwo,Static.TARGET_WIDTH,Static.targetHeightFixer,Assets.rect_black,texShaderProgram);

@@ -41,6 +41,12 @@ public class FontLabel extends UIElement {
         store((parent == null)?1 : parent.scale);
     }
 
+    public void set(String str, boolean center, float fontScale, Font font)
+    {
+        this.font = font;
+        set(str,center,fontScale);
+    }
+
     private void store(float parentScale)
     {
         Font.Glyph[] glyph = font.glyph;

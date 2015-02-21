@@ -22,6 +22,8 @@ public abstract class UILayout extends UIElement implements Clickable
 
 
 
+
+
     public UILayout(float width, float height, TextureRegion texRegion)
     {
         this.width = currentWidth = width;
@@ -40,20 +42,44 @@ public abstract class UILayout extends UIElement implements Clickable
 
     public void addElement(UIElement e, float relX, float relY)
     {
-        allElements.add(e);
-        // relativePositions.add(new Vector2(relX,relY));
+        if(e.parent != this)  // no duplicates
+        {
+            allElements.add(e);
+            // relativePositions.add(new Vector2(relX,relY));
 
-        e.setRel(relX, relY);
-        e.parent = this;
-        e.onParentPosSet();
+            e.setRel(relX, relY);
+            e.parent = this;
+            e.onParentPosSet();
 
-        if(e.isClickable()) {
-            uiLayoutElements.add((UILayout) e);
+            if (e.isClickable()) {
+                uiLayoutElements.add((UILayout) e);
+            }
+        }
+    }
+
+    public UIElement removeElement(UIElement e)
+    {
+       allElements.remove(e);
+       e.parent = null;
+
+        if(e.isClickable())
+        {
+            uiLayoutElements.remove(e);
+        }
+        return e;
+    }
+
+    public void removeEverySingleElement()
+    {
+        for(int i=0;i<allElements.size(); i++)
+        {
+            removeElement(allElements.get(i));
         }
     }
 
 
     public abstract void popUp();
+
 
 
 
@@ -121,11 +147,13 @@ public abstract class UILayout extends UIElement implements Clickable
     public void draw(float delX, float delY) {
         if(visible)
         {
+
             for(int i=0; i<allElements.size(); i++)
             {
                 UIElement e = allElements.get(i);
                 e.draw(delX,delY);
             }
+
         }
     }
 
@@ -138,7 +166,7 @@ public abstract class UILayout extends UIElement implements Clickable
 
     protected void drawTextureRegion(float delX, float delY)
     {
-        if(texRegion != null)
+        if(texRegion != null && visible)
             WorldRenderer.batcher.drawCarefulSprite(posX + delX, posY + delY, currentWidth, currentHeight,texRegion,WorldRenderer.texShaderProgram);
     }
 

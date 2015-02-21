@@ -22,6 +22,8 @@ public class AnimeCounter {
     public TextureRegion[] arr;
     private TextureRegion textureRegion;
 
+    private ReverseCompleteListener reverseCompleteListener;
+
     public void setAnime(AnimPackage animePack) {
         if (this.animePack == animePack) // no overwriting
         {
@@ -43,6 +45,11 @@ public class AnimeCounter {
         animeComplete = false;
 
         reset(0);
+    }
+
+    public void setReverseCompleteListener(ReverseCompleteListener reverseCompleteListener)
+    {
+        this.reverseCompleteListener = reverseCompleteListener;
     }
 
     public void resetAnime()
@@ -92,6 +99,11 @@ public class AnimeCounter {
 
                 } else if (currentIndex < 0) // only possible if ANIME_REVERSE
                 {
+                    if(reverseCompleteListener != null)
+                    {
+                        reverseCompleteListener.onReverseComplete();
+                    }
+
                     currentCount++;
                     if (currentCount == repeatCount) {
                         currentIndex = 0;
@@ -129,6 +141,11 @@ public class AnimeCounter {
 
             this.stepSize = stepSize;
         }
+    }
+
+    public interface ReverseCompleteListener
+    {
+        public void onReverseComplete();
     }
 
 }

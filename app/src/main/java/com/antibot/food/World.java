@@ -37,13 +37,15 @@ public class World extends GameStateHandlerWithSubStates
 		
 		createGameStateHandlerArray();
 		
-		Static.levelGenerator = new LevelGenerator();
+
         Static.sceneLoader = new SceneLoader();
 		
 		
 		//setting static for easy reference		
 		Static.world = this; // the one and only
 		Static.session = session = new Session();
+
+        Static.NicePool = new NicePool();
 
         nitro = new Nitro();
 	}
@@ -53,7 +55,7 @@ public class World extends GameStateHandlerWithSubStates
 		Static.gameStateHandlerArr = subStateArr = new GameStateHandler[NUMBER_OF_GAME_STATES];
 		subStateArr[MAIN_MENU] = new MainMenuHandler(this);
         subStateArr[PERK_SELECTION] = new PerkSelectionHandler(this);
-		Static.gameRunningHandler = subStateArr[GAME_RUNNING] = new GameRunningHandler(this);
+        subStateArr[GAME_RUNNING] = Static.gameRunningHandler = new GameRunningHandler(this);
         subStateArr[GAME_SETTINGS] = new GameSettingsHandler(this);
 
 

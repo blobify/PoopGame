@@ -31,6 +31,8 @@ public class Food extends CircularCollidableObject
 
     private float angularVel;
     private float angle;
+
+    private FoodEatenListener foodEatenListener;
 	
 	public Food()
 	{
@@ -53,7 +55,18 @@ public class Food extends CircularCollidableObject
        else    angularVel = ANGULAR_VEL;
 
        angle = 0;
-	}	
+
+	}
+
+    public void setFoodEatenListener(FoodEatenListener foodEatenListener)
+    {
+        this.foodEatenListener = foodEatenListener;
+    }
+
+    public void unsetFoodEatenListener()
+    {
+        this.foodEatenListener = null;
+    }
 
 	
 	
@@ -119,6 +132,12 @@ public class Food extends CircularCollidableObject
         collidable = false;
         state = STATE_DEATH_PHASE;
         eatenByObj = obj;
+
+        if(foodEatenListener != null)
+        {
+            foodEatenListener.onFoodEaten(obj);
+            unsetFoodEatenListener();
+        }
     }
 
 	@Override
@@ -161,6 +180,8 @@ public class Food extends CircularCollidableObject
     public void disable() {
         super.disable();
         eatenByObj = null;
+
+        foodEatenListener = null;
     }
 
     @Override
@@ -197,5 +218,12 @@ public class Food extends CircularCollidableObject
             bomb.explode();
             deathToYou();
         }
+    }
+
+
+    public interface FoodEatenListener
+    {
+        public void onFoodEaten(CollidableObject theThingThatAteMe);
+
     }
 }

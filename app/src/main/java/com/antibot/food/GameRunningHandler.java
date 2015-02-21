@@ -5,6 +5,8 @@ import com.antibot.food.gameobj.Nitro;
 import com.framework.utils.Logger;
 import com.game.framework.Input.KeyEvent;
 
+import java.util.ArrayList;
+
 public class GameRunningHandler extends GameStateHandlerWithSubStates
 {
 
@@ -16,8 +18,11 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 	public static final int GR_SS_RUNNING = 0, GR_SS_PAUSED = 1, GR_SS_DIALOG_QUIT = 2 , GR_SS_DIALOG_END = 3;// GR_SS = GAME RUNNING SUB STATE
 	private static final int NO_OF_SUB_STATES = 4;
 
+    private ArrayList<DrawWork> additionalDrawList;
 
 	//private GameStateHandler currentSubState;
+
+    private LevelGenerator levelGenerator;
 
 
 
@@ -26,7 +31,9 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
         super(World.GAME_RUNNING,parent);
 		Static.objHandler = objectHandler = new ObjectHandler();
 		Static.cam = cam = new Camera();
+        additionalDrawList = new ArrayList<DrawWork>(3);
 
+        levelGenerator = new LevelGenerator();
 
 
         Static.musca.setMuscaDeathListener(new Musca.MuscaDeathListener() {
@@ -58,7 +65,10 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 
 
         if(current.objType != GR_SS_PAUSED && current.objType != GR_SS_DIALOG_QUIT)  //dont update when paused :|
+        {
             updateObjectsAndCamera(deltaTime);
+            levelGenerator.update(deltaTime);
+        }
 
 		current.update(deltaTime);
 
@@ -74,11 +84,18 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 
     }
 
-
 	@Override
 	public void draw()
 	{
+        WorldRenderer.presentRunning();
+
+        for(int i=0; i<additionalDrawList.size(); i++)
+        {
+            additionalDrawList.get(i).draw();
+        }
+
 		current.draw();
+
 	}
 
 	@Override
@@ -94,7 +111,7 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 
         Static.session.resetSession();
 
-        Static.levelGenerator.reset();
+        levelGenerator.onStart();
 
     }
 
@@ -151,6 +168,10 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 
         Static.world.nitro.resetNitro();
         Static.musca.clean(Static.TARGET_WIDTH / 2, 0);
+
+        additionalDrawList.clear();
+
+        levelGenerator.onEnd();
 
 
 	}
@@ -216,27 +237,30 @@ public class GameRunningHandler extends GameStateHandlerWithSubStates
 
     }
 
-
-
-
-    /*@Override
-    public void changeStateIf() {
-
-        if(stateChangeFlag)
-        {
-            if(indexToChange < 0)
-            {
-                if(indexToChange == -1)
-                {
-                    parent.setChangeStateFlag(World.MAIN_MENU);
-                }
-            }
-            else
-            {
-                super.changeStateIf();
-            }
-            stateChangeFlag = false;
-        }
-
+    /*public ArrayList<DrawWork> getAdditionalDrawList()
+    {
+        return additionalDrawList;
     }*/
+
+    public void addToAdditionalDrawList(DrawWork work)
+    {
+        for(int i=0; i<additionalDrawList.size(); i++)
+        {
+            if(work == additionalDrawList.get(i)) //if work already exists in list
+            {
+                return;
+            }
+        }
+        additionalDrawList.add(work);
+    }
+
+    public LevelGenerator getLevelGenerator()
+    {
+        return levelGenerator;
+    }
+
+    public void removeFromAdditionalDrawList(DrawWork work)
+    {
+        additionalDrawList.remove(work);
+    }
 }

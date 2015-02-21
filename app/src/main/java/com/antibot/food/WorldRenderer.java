@@ -105,7 +105,7 @@ public class WorldRenderer
 		
 		batcher.beginBatch();
 		
-		Font.drawFont(batcher, "GO MUSCA!!", Static.TARGET_WIDTH/2, Static.TARGET_HEIGHT/2, Assets.fnt_playtime, 1 , true);
+		//Font.drawFont(batcher, "GO MUSCA!!", Static.TARGET_WIDTH/2, Static.TARGET_HEIGHT/2, Assets.fnt_playtime, 1 , true);
 		
 		drawDumboebaPathPoints();
 		
